@@ -2,7 +2,7 @@
 
 # Inventrack
 
-Inventrack is a full-stack product inventory management system with a FastAPI backend and a React frontend. It allows you to track, add, edit, delete, filter, and export/import products in a clean dashboard.
+Inventrack is a full-stack product inventory management system with a FastAPI backend and a React frontend. It allows you to track, add, edit, delete, filter, and export/import products in a clean, user friendly dashboard.
 
 ---
 
