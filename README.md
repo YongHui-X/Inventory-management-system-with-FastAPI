@@ -1,84 +1,145 @@
 
-# Inventrack - Product Inventory Management
 
-A product inventory management system built with a FastAPI backend and React frontend. Inventrack keeps product tracking, editing, and review in one clean dashboard.
+# Inventrack
+
+Inventrack is a full-stack product inventory management system with a FastAPI backend and a React frontend. It allows you to track, add, edit, delete, filter, and export/import products in a clean dashboard.
+
+---
 
 ## Features
 
-- **GET /**: Welcome endpoint
-- **GET /products/**: Get all products
-- **GET /products/{product_id}**: Get a specific product by ID
-- **POST /products/**: Create a new product
+- View all products, filter, and sort
+- Add, edit, and delete products
+- Import/export inventory as CSV
+- Download inventory as PDF (print)
+- REST API with CRUD endpoints
+- Interactive API docs (Swagger UI)
 
-## Setup
+Main page
+![Alt Text](frontend\images\mainpage.png) 
+Create an item
+![Alt Text](frontend\images\create.png)
+Item added to inventory 
+![Alt Text](frontend\images\result.png) 
+---
 
-1. **Create and activate virtual environment:**
-   ```bash
-   python -m venv myenv
-   myenv\Scripts\activate.ps1  # Windows PowerShell
-   ```
+## Backend (FastAPI)
 
-2. **Install dependencies:**
-   ```bash
-   pip install fastapi uvicorn
-   ```
+- **Stack:** FastAPI, SQLAlchemy, PostgreSQL, Pydantic
+- **Key files:**
+   - `main.py`: FastAPI app, endpoints, DB init
+   - `database.py`: DB connection (SQLAlchemy)
+   - `database_models.py`: SQLAlchemy models
+   - `models.py`: Pydantic schemas
 
-3. **Run the application:**
-   ```bash
-   uvicorn main:app --reload
-   ```
+### Main Endpoints
 
-4. **Access the API:**
-   - API: http://localhost:8000
-   - Interactive docs: http://localhost:8000/docs
-   - ReDoc: http://localhost:8000/redoc
+- `GET /` — Welcome message
+- `GET /products/` — List all products
+- `GET /products/{id}` — Get product by ID
+- `POST /products/` — Create product
+- `PUT /products/{id}` — Update product
+- `DELETE /products/{id}` — Delete product
+
+### Product Model
+
+| Field       | Type    | Description                |
+|-------------|---------|----------------------------|
+| id          | int     | Unique product ID          |
+| name        | string  | Product name               |
+| description | string  | Product description        |
+| price       | float   | Price per unit             |
+| quantity    | int     | Quantity in stock          |
+
+---
+
+## Frontend (React)
+
+- **Stack:** React, Axios, CSS
+- **Key files:**
+   - `frontend/src/App.js`: Main dashboard UI
+   - `frontend/public/index.html`: HTML template
+   - `frontend/package.json`: Scripts & dependencies
+
+### Main Features
+
+- Dashboard: List, filter, sort, and search products
+- Add/Edit/Delete products with form
+- Import/export CSV, print as PDF
+
+---
+
+## Getting Started
+
+### 1. Backend Setup
+
+```bash
+# Create and activate virtual environment
+python -m venv myenv
+myenv\Scripts\activate.ps1  # Windows PowerShell
+
+# Install dependencies
+pip install fastapi uvicorn sqlalchemy psycopg2 pydantic
+
+# Start PostgreSQL and ensure DB connection string in database.py is correct
+
+# Run the FastAPI server
+uvicorn main:app --reload
+```
+
+API Docs: [http://localhost:8000/docs](http://localhost:8000/docs)
+
+### 2. Frontend Setup
+
+```bash
+cd frontend
+npm install
+npm start
+```
+
+App: [http://localhost:3000](http://localhost:3000)
+
+---
+
+## Example API Usage
+
+```bash
+# Get all products
+curl http://localhost:8000/products/
+
+# Get product by ID
+curl http://localhost:8000/products/1
+
+# Create a new product
+curl -X POST "http://localhost:8000/products/" \
+       -H "Content-Type: application/json" \
+       -d '{
+          "id": 5,
+          "name": "Monitor",
+          "description": "4K monitor",
+          "price": 299.99,
+          "quantity": 15
+       }'
+```
+
+---
 
 ## Project Structure
 
 ```
-inventrack/
-├── main.py          # FastAPI application with endpoints
-├── models.py        # Pydantic models
-├── .gitignore       # Git ignore file
-└── README.md        # This file
+├── main.py                # FastAPI app & endpoints
+├── database.py            # SQLAlchemy DB connection
+├── database_models.py     # SQLAlchemy models
+├── models.py              # Pydantic schemas
+├── frontend/              # React app
+│   ├── src/App.js         # Main dashboard UI
+│   ├── public/index.html  # HTML template
+│   └── ...
+└── README.md
 ```
 
-## API Usage Examples
+---
 
-### Get all products
-```bash
-curl http://localhost:8000/products/
-```
+## License
 
-### Get product by ID
-```bash
-curl http://localhost:8000/products/1
-```
-
-### Create a new product
-```bash
-curl -X POST "http://localhost:8000/products/" \
-     -H "Content-Type: application/json" \
-     -d '{
-       "id": 5,
-       "name": "Monitor",
-       "description": "4K monitor",
-       "price": 299.99,
-       "quantity": 15
-     }'
-```
-
-## Models
-
-### Product
-- `id`: integer
-- `name`: string
-- `description`: string
-- `price`: float
-- `quantity`: integer
-
-## Built With
-
-- [FastAPI](https://fastapi.tiangolo.com/) - Modern, fast web framework for building APIs
-- [Pydantic](https://pydantic-docs.helpmanual.io/) - Data validation using Python type hints
-- [Uvicorn](https://www.uvicorn.org/) - ASGI server implementation
+MIT License
