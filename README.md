@@ -16,11 +16,11 @@ Inventrack is a full-stack product inventory management system with a FastAPI ba
 - Interactive API docs (Swagger UI)
 
 Main page
-![Alt Text](frontend\images\mainpage.png) 
+![Alt Text](frontend/images/mainpage.png)
 Create an item
-![Alt Text](frontend\images\create.png)
+![Alt Text](frontend/images/create.png)
 Item added to inventory 
-![Alt Text](frontend\images\result.png) 
+![Alt Text](frontend/images/result.png)
 ---
 
 ## Backend (FastAPI)
